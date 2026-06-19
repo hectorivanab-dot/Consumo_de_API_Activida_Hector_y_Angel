@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, ActivityIndicator } from 'react-native';
+import { View, Text, FlatList, ActivityIndicator, StyleSheet, StatusBar } from 'react-native';
 
 export default function App() {
   const [data, setData] = useState([]);
@@ -16,24 +16,64 @@ export default function App() {
   }, []);
 
   return (
-    <View style={{ flex: 1, paddingTop: 50, paddingHorizontal: 20 }}>
-      <Text style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 10 }}>
-        Lista de Usuarios (API)
-      </Text>
+    <View style={styles.container}>
+      <StatusBar barStyle="dark-content" />
+      <Text style={styles.title}>Directorio de Usuarios</Text>
+      
       {loading ? (
-        <ActivityIndicator />
+        <ActivityIndicator size="large" color="#0000ff" />
       ) : (
         <FlatList
           data={data}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
-            <View style={{ padding: 10, borderBottomWidth: 1 }}>
-              <Text>{item.name}</Text>
-              <Text style={{ color: 'gray' }}>{item.email}</Text>
+            <View style={styles.card}>
+              <Text style={styles.name}>{item.name}</Text>
+              <Text style={styles.email}>{item.email}</Text>
             </View>
           )}
+          contentContainerStyle={{ paddingBottom: 20 }}
         />
       )}
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#f5f5f5',
+    paddingTop: 60,
+    paddingHorizontal: 15,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    color: '#333',
+    textAlign: 'center',
+  },
+  card: {
+    backgroundColor: '#ffffff',
+    padding: 18,
+    borderRadius: 12,
+    marginBottom: 12,
+    // Sombra para iOS
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    // Sombra para Android
+    elevation: 3,
+  },
+  name: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#2c3e50',
+  },
+  email: {
+    fontSize: 14,
+    color: '#7f8c8d',
+    marginTop: 4,
+  },
+});
