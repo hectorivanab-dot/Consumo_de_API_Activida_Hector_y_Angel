@@ -1,9 +1,9 @@
-import { Text, View } from 'react-native';
+import { View, Text } from 'react-native';
 
 export default function App() {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Hola Mundo</Text>
+      <Text style={{ fontSize: 24, fontWeight: 'bold' }}>Aplicación en mantenimiento</Text>
     </View>
   );
 }
