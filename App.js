@@ -1,50 +1,30 @@
-import { useEffect, useState } from 'react';
+import React from 'react';
 import {
-  ActivityIndicator,
-  FlatList,
-  StatusBar,
+  View,
+  Button,
   StyleSheet,
-  Text,
-  View
+  Alert
 } from 'react-native';
 
-export default function App() {
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
+import { syncData } from './src/utils/cloudEngine';
 
-  useEffect(() => {
-    fetch('https://jsonplaceholder.typicode.com/users')
-      .then((response) => response.json())
-      .then((json) => {
-        setData(json);
-        setLoading(false);
-      })
-      .catch((error) => console.error(error));
-  }, []);
+export default function App() {
+
+  const handleSync = async () => {
+    const result = await syncData();
+
+    Alert.alert(
+      'Sincronización',
+      `Registros obtenidos: ${result.length}`
+    );
+  };
 
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="dark-content" />
-
-      <Text style={styles.title}>
-        Directorio de Usuarios
-      </Text>
-
-      {loading ? (
-        <ActivityIndicator size="large" color="#0000ff" />
-      ) : (
-        <FlatList
-          data={data}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => (
-            <View style={styles.card}>
-              <Text style={styles.name}>{item.name}</Text>
-              <Text style={styles.email}>{item.email}</Text>
-            </View>
-          )}
-          contentContainerStyle={{ paddingBottom: 20 }}
-        />
-      )}
+      <Button
+        title="SINCRONIZAR DATOS"
+        onPress={handleSync}
+      />
     </View>
   );
 }
@@ -52,36 +32,8 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
-    paddingTop: 60,
-    paddingHorizontal: 15,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
-    color: '#333',
-    textAlign: 'center',
-  },
-  card: {
-    backgroundColor: '#ffffff',
-    padding: 18,
-    borderRadius: 12,
-    marginBottom: 12,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
-  },
-  name: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#2c3e50',
-  },
-  email: {
-    fontSize: 14,
-    color: '#7f8c8d',
-    marginTop: 4,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 30,
   },
 });
