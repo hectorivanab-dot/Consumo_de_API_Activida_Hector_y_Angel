@@ -1,5 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, ActivityIndicator, StyleSheet, StatusBar } from 'react-native';
+import { useEffect, useState } from 'react';
+import {
+  ActivityIndicator,
+  FlatList,
+  StatusBar,
+  StyleSheet,
+  Text,
+  View
+} from 'react-native';
 
 export default function App() {
   const [data, setData] = useState([]);
@@ -18,8 +25,15 @@ export default function App() {
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" />
-      <Text style={styles.title}>Directorio de Usuarios</Text>
-      
+
+      <Text style={styles.banner}>
+        Aplicación en mantenimiento
+      </Text>
+
+      <Text style={styles.title}>
+        Directorio de Usuarios
+      </Text>
+
       {loading ? (
         <ActivityIndicator size="large" color="#0000ff" />
       ) : (
@@ -46,6 +60,14 @@ const styles = StyleSheet.create({
     paddingTop: 60,
     paddingHorizontal: 15,
   },
+  banner: {
+    backgroundColor: '#ffcc00',
+    padding: 10,
+    borderRadius: 8,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    marginBottom: 15,
+  },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
@@ -58,12 +80,10 @@ const styles = StyleSheet.create({
     padding: 18,
     borderRadius: 12,
     marginBottom: 12,
-    // Sombra para iOS
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
-    // Sombra para Android
     elevation: 3,
   },
   name: {
