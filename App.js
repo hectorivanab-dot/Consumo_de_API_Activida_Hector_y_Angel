@@ -26,10 +26,6 @@ export default function App() {
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" />
 
-      <Text style={styles.banner}>
-        Aplicación en mantenimiento
-      </Text>
-
       <Text style={styles.title}>
         Directorio de Usuarios
       </Text>
@@ -59,14 +55,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#f5f5f5',
     paddingTop: 60,
     paddingHorizontal: 15,
-  },
-  banner: {
-    backgroundColor: '#ffcc00',
-    padding: 10,
-    borderRadius: 8,
-    textAlign: 'center',
-    fontWeight: 'bold',
-    marginBottom: 15,
   },
   title: {
     fontSize: 24,
